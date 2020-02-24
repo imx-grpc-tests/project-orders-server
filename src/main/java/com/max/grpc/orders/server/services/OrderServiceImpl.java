@@ -33,7 +33,10 @@ public class OrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase {
 
         var receiptBuilder = OrderReceipt.newBuilder();
         receiptBuilder.setId(UUID.randomUUID().toString());
-        receiptBuilder.setDate((long)(System.currentTimeMillis() / 1e3));
+
+        long currentTimeSeconds = System.currentTimeMillis() / 1000;
+        receiptBuilder.setDate(currentTimeSeconds);
+
         receiptBuilder.addAllItems(chosenItems);
 
         int totalPrice = chosenItems.stream().mapToInt(FoodItem::getPrice).sum();
