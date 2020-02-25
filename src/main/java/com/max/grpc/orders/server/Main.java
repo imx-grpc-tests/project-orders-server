@@ -1,7 +1,9 @@
 
 package com.max.grpc.orders.server;
 
+import com.max.grpc.orders.server.controllers.ControllersHolder;
 import com.max.grpc.orders.server.food.FoodManager;
+import com.max.grpc.orders.server.services.ServicesHolder;
 
 public class Main {
     public static final int DEFAULT_SERVER_PORT = 16000;
@@ -12,9 +14,12 @@ public class Main {
         config.load();
         int serverPort = config.getServerPortOrDefault(DEFAULT_SERVER_PORT);
 
-        var foodManager = new FoodManager();
-        var server = new CafeServer(serverPort, foodManager);
-        server.start();
-        server.blockUntilShutdown();
+        var food = new FoodManager();
+        var services = new ServicesHolder(food);
+        var controllers = new ControllersHolder(services);
+        var cafeGrpcServer = new CafeServer(serverPort, controllers);
+
+        cafeGrpcServer.start();
+        cafeGrpcServer.blockUntilShutdown();
     }
 }

@@ -4,26 +4,21 @@ package com.max.grpc.orders.server.controllers;
 import com.google.protobuf.Empty;
 
 import com.max.grpc.orders.proto.CafeMenu;
-import com.max.grpc.orders.proto.FoodItem;
 import com.max.grpc.orders.proto.MenuServiceGrpc;
-import com.max.grpc.orders.server.food.FoodManager;
+import com.max.grpc.orders.server.services.MenuService;
 
 import io.grpc.stub.StreamObserver;
 
-import java.util.List;
-
 public class MenuController extends MenuServiceGrpc.MenuServiceImplBase {
-    private FoodManager foodManager;
+    private MenuService menuService;
 
-    public MenuController(FoodManager foodManager) {
-        this.foodManager = foodManager;
+    public MenuController(MenuService menuService) {
+        this.menuService = menuService;
     }
 
     @Override
     public void getMenu(Empty request, StreamObserver<CafeMenu> responseObserver) {
-        FoodItem[] menu = foodManager.getMenu();
-        CafeMenu cafeMenu = CafeMenu.newBuilder().addAllItems(List.of(menu)).build();
-
+        CafeMenu cafeMenu = menuService.getMenu();
         responseObserver.onNext(cafeMenu);
         responseObserver.onCompleted();
     }
