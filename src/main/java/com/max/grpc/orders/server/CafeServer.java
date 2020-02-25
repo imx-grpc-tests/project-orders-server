@@ -2,8 +2,8 @@
 package com.max.grpc.orders.server;
 
 import com.max.grpc.orders.server.food.FoodManager;
-import com.max.grpc.orders.server.services.MenuServiceImpl;
-import com.max.grpc.orders.server.services.OrderServiceImpl;
+import com.max.grpc.orders.server.controllers.MenuController;
+import com.max.grpc.orders.server.controllers.OrdersController;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -29,8 +29,8 @@ public class CafeServer {
 
     public void start() {
         Server server = ServerBuilder.forPort(port)
-                .addService(new MenuServiceImpl(foodManager))
-                .addService(new OrderServiceImpl(foodManager))
+                .addService(new MenuController(foodManager))
+                .addService(new OrdersController(foodManager))
                 .build();
         try {
             server.start();

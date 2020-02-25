@@ -1,5 +1,5 @@
 
-package com.max.grpc.orders.server.services;
+package com.max.grpc.orders.server.controllers;
 
 import com.max.grpc.orders.proto.FoodItem;
 import com.max.grpc.orders.proto.Order;
@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class OrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase {
+public class OrdersController extends OrderServiceGrpc.OrderServiceImplBase {
     private FoodManager foodManager;
 
-    public OrderServiceImpl(FoodManager foodManager) {
+    public OrdersController(FoodManager foodManager) {
         this.foodManager = foodManager;
     }
 

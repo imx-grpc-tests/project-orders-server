@@ -1,5 +1,5 @@
 
-package com.max.grpc.orders.server.services;
+package com.max.grpc.orders.server.controllers;
 
 import com.google.protobuf.Empty;
 
@@ -12,10 +12,10 @@ import io.grpc.stub.StreamObserver;
 
 import java.util.List;
 
-public class MenuServiceImpl extends MenuServiceGrpc.MenuServiceImplBase {
+public class MenuController extends MenuServiceGrpc.MenuServiceImplBase {
     private FoodManager foodManager;
 
-    public MenuServiceImpl(FoodManager foodManager) {
+    public MenuController(FoodManager foodManager) {
         this.foodManager = foodManager;
     }
 
