@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1de4b4f0-0ec5-46c5-b921-6ae703fdf8bf",
+    "title": "Apple juice",
+    "type": "DESSERT",
+    "weight": 0.5,
+    "price": 2
+  },
+  {
+    "id": "59577ef6-bdc9-4d7a-b13e-0adeabe698e9",
+    "title": "Roast chicken",
+    "type": "MAIN_COURSE",
+    "weight": 1.0,
+    "price": 20
+  },
+  {
+    "id": "89390f3b-4e22-4bea-a44f-0618d6b77585",
+    "title": "Caesar salad",
+    "type": "STARTERS",
+    "weight": 0.3,
+    "price": 3
+  }
+]
