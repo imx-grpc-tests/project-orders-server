@@ -1,7 +1,7 @@
 
 package com.max.grpc.orders.server;
 
-import com.max.grpc.orders.server.controllers.ControllersHolder;
+import com.max.grpc.orders.server.services.grpc.GrpcServicesHolder;
 import com.max.grpc.orders.server.food.FoodManager;
 import com.max.grpc.orders.server.services.ServicesHolder;
 
@@ -18,8 +18,8 @@ public class Main {
         var food = new FoodManager();
         food.loadFrom(FOOD_DATABASE_PATH);
         var services = new ServicesHolder(food);
-        var controllers = new ControllersHolder(services);
-        var cafeGrpcServer = new CafeServer(serverPort, controllers);
+        var grpcServices = new GrpcServicesHolder(services);
+        var cafeGrpcServer = new CafeServer(serverPort, grpcServices);
 
         cafeGrpcServer.start();
         cafeGrpcServer.blockUntilShutdown();

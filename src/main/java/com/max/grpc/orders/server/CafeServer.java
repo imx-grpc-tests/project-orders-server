@@ -1,7 +1,7 @@
 
 package com.max.grpc.orders.server;
 
-import com.max.grpc.orders.server.controllers.ControllersHolder;
+import com.max.grpc.orders.server.services.grpc.GrpcServicesHolder;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -14,11 +14,11 @@ public class CafeServer {
     private int port;
     private Server server;
 
-    public CafeServer (int port, ControllersHolder controllers) {
+    public CafeServer (int port, GrpcServicesHolder grpcServices) {
         this.port = port;
         this.server = ServerBuilder.forPort(port)
-            .addService(controllers.getMenuController())
-            .addService(controllers.getOrdersController())
+            .addService(grpcServices.getMenuGrpcService())
+            .addService(grpcServices.getOrdersGrpcService())
             .build();
     }
 

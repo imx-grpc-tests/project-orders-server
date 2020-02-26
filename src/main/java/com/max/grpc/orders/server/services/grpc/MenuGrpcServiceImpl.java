@@ -1,5 +1,5 @@
 
-package com.max.grpc.orders.server.controllers;
+package com.max.grpc.orders.server.services.grpc;
 
 import com.google.protobuf.Empty;
 
@@ -10,11 +10,11 @@ import com.max.grpc.orders.server.services.MenuService;
 import io.grpc.stub.StreamObserver;
 import org.apache.log4j.Logger;
 
-public class MenuController extends MenuServiceGrpc.MenuServiceImplBase {
+public class MenuGrpcServiceImpl extends MenuServiceGrpc.MenuServiceImplBase {
     private MenuService menuService;
-    private final Logger logger = Logger.getLogger(MenuController.class);
+    private final Logger logger = Logger.getLogger(MenuGrpcServiceImpl.class);
 
-    public MenuController(MenuService menuService) {
+    public MenuGrpcServiceImpl(MenuService menuService) {
         this.menuService = menuService;
     }
 

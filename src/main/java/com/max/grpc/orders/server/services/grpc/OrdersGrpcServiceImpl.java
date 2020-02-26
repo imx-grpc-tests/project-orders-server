@@ -1,5 +1,5 @@
 
-package com.max.grpc.orders.server.controllers;
+package com.max.grpc.orders.server.services.grpc;
 
 import com.max.grpc.orders.proto.Order;
 import com.max.grpc.orders.proto.OrderReceipt;
@@ -9,11 +9,11 @@ import com.max.grpc.orders.server.services.OrdersService;
 import io.grpc.stub.StreamObserver;
 import org.apache.log4j.Logger;
 
-public class OrdersController extends OrderServiceGrpc.OrderServiceImplBase {
+public class OrdersGrpcServiceImpl extends OrderServiceGrpc.OrderServiceImplBase {
     private OrdersService ordersService;
-    private final Logger logger = Logger.getLogger(OrdersController.class);
+    private final Logger logger = Logger.getLogger(OrdersGrpcServiceImpl.class);
 
-    public OrdersController(OrdersService ordersService) {
+    public OrdersGrpcServiceImpl(OrdersService ordersService) {
         this.ordersService = ordersService;
     }
 
