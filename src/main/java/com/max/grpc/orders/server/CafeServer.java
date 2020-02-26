@@ -35,6 +35,7 @@ public class CafeServer {
     public void blockUntilShutdown() {
         if (server != null) {
             try {
+                logger.info("Blocking runtime until shutdown...");
                 server.awaitTermination();
             }
             catch (InterruptedException ex) {

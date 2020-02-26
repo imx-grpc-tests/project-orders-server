@@ -6,18 +6,22 @@ import com.max.grpc.orders.proto.Order;
 import com.max.grpc.orders.proto.OrderReceipt;
 import com.max.grpc.orders.server.food.FoodManager;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class OrdersService {
     private FoodManager foodManager;
+    private final Logger logger = Logger.getLogger(OrdersService.class);
 
     public OrdersService(FoodManager foodManager) {
         this.foodManager = foodManager;
     }
 
     public OrderReceipt makeOrder(Order order) {
+        logger.info("make-order: creating order...");
         List<String> foodIds = order.getItemIdsList();
 
         List<FoodItem> chosenItems = new ArrayList<>();
@@ -28,6 +32,7 @@ public class OrdersService {
             }
         }
 
+        logger.info("make-order: forming order receipt...");
         var receiptBuilder = OrderReceipt.newBuilder();
         receiptBuilder.setId(UUID.randomUUID().toString());
 
