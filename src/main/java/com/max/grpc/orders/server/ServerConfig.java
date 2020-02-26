@@ -21,6 +21,7 @@ public class ServerConfig {
         try (var fileStream = new FileInputStream(filepath)) {
             props = new Properties();
             props.load(fileStream);
+            logger.info("Config loaded successfully");
         }
         catch (FileNotFoundException ex) {
             var logString = String.format("File %s not found", filepath);

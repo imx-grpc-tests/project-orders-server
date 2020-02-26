@@ -4,25 +4,26 @@ package com.max.grpc.orders.server.services;
 import com.max.grpc.orders.proto.FoodItem;
 import com.max.grpc.orders.proto.Order;
 import com.max.grpc.orders.proto.OrderReceipt;
-import com.max.grpc.orders.proto.OrderServiceGrpc;
 import com.max.grpc.orders.server.food.FoodManager;
 
-import io.grpc.stub.StreamObserver;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class OrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase {
+public class OrdersService {
     private FoodManager foodManager;
+    private final Logger logger = Logger.getLogger(OrdersService.class);
 
-    public OrderServiceImpl(FoodManager foodManager) {
+    public OrdersService(FoodManager foodManager) {
         this.foodManager = foodManager;
     }
 
-    @Override
-    public void makeOrder(Order request, StreamObserver<OrderReceipt> responseObserver) {
-        List<String> foodIds = request.getItemIdsList();
+    public OrderReceipt makeOrder(Order order) {
+        logger.info("make-order: creating order...");
+        List<String> foodIds = order.getItemIdsList();
+
         List<FoodItem> chosenItems = new ArrayList<>();
         for (String itemId : foodIds) {
             FoodItem item = foodManager.getItemById(itemId);
@@ -31,6 +32,7 @@ public class OrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase {
             }
         }
 
+        logger.info("make-order: forming order receipt...");
         var receiptBuilder = OrderReceipt.newBuilder();
         receiptBuilder.setId(UUID.randomUUID().toString());
 
@@ -42,8 +44,6 @@ public class OrderServiceImpl extends OrderServiceGrpc.OrderServiceImplBase {
         int totalPrice = chosenItems.stream().mapToInt(FoodItem::getPrice).sum();
         receiptBuilder.setTotalPrice(totalPrice);
 
-        OrderReceipt receipt = receiptBuilder.build();
-        responseObserver.onNext(receipt);
-        responseObserver.onCompleted();
+        return receiptBuilder.build();
     }
 }
